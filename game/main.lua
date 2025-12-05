@@ -64,7 +64,7 @@ end
 local function startNewRound()
     if not chosenCategory then
         mode = "choose"
-        message = "Type a category and press Enter."
+        message = ""   -- we rely on static text in draw()
         return
     end
 
@@ -173,7 +173,7 @@ function love.keypressed(key)
     if mode == "welcome" then
         if key == "return" or key == "kpenter" or key == "space" then
             mode = "choose"
-            message = "Type a category and press Enter."
+            message = ""   -- no duplicate instructions
         end
         return
     end
@@ -295,6 +295,7 @@ function love.draw()
         love.graphics.print("Type a category and press Enter:", 40, 170)
         love.graphics.print("> " .. categoryInput, 40, 200)
 
+        -- Only show message for errors / extra info (no duplicate instructions)
         if message ~= "" then
             love.graphics.print(message, 40, 240)
         end
